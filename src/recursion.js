@@ -72,28 +72,17 @@ var sumBelow = function(n) {
 var range = function(x, y) {
   var result = [];
   if (x === y || x - y === 1 || y - x === 1) {
-    return [];
-  } else if (typeof x === 'number') {
+    return result;
+  } else {
     if (x < y) {
       result.push(x + 1);
+      result = result.concat(range(x + 1, y));  
     } else {
       result.push(x - 1);
-    }
-    return range(result, y)
-  } else {
-    result = x;
-    var last = x[x.length - 1]
-    if (last > y) {
-      result.push(last - 1)
-      return range(result, y)
-    } else if (last < y) {
-      result.push(last + 1)
-      return range(result, y)
-    } else if (last === y) {
-      x.pop();
-      return x;
+      result = result.concat(range(x - 1, y));  
     }
   }
+  return result;
 };
 
 // 7. Compute the exponent of a number.
@@ -152,17 +141,45 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  // x/y = q + r/y
+  // x = initial
+  // y = divisor
+  // q = result of division rounded down to nearest integer
+  // r = remainder
   
+  // store x/y;
+  // store x/y rounded down to the next integer;
+
+
+
+  // what is x / y - round it down to the nearest integer. 
+  // call modulo againx
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+  var mult = x;
+  if (x === 0 || y === 0) {
+    return 0;
+  } else if (y > 0) {
+    if (y > 1) {
+      mult += multiply(x, y - 1)
+    }
+  } else if (y < 0) {
+    mult = -x
+    if (y < -1) {
+      mult += multiply(x, y + 1)
+    }
+  }
+  return mult;
 };
+
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods.
 var divide = function(x, y) {
+  
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
