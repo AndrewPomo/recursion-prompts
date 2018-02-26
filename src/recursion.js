@@ -141,19 +141,21 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
-  // x/y = q + r/y
-  // x = initial
-  // y = divisor
-  // q = result of division rounded down to nearest integer
-  // r = remainder
-  
-  // store x/y;
-  // store x/y rounded down to the next integer;
-
-
-
-  // what is x / y - round it down to the nearest integer. 
-  // call modulo againx
+  if (y === 0) {
+    return NaN;
+  } else if (x < 0 && y < 0) {
+    x = -x;
+    y = -y;
+    return x < y ? -x : -modulo(x-y, y);
+  } else if (x < 0) {
+    x = -x
+    return x < y ? -x : -modulo(x-y, y);
+  } else if (y < 0){
+    y = -y;
+    return x < y ? -x : -modulo(x-y, y)
+  } else {
+    return x < y ? x : modulo(x-y, y)
+  }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
@@ -163,14 +165,10 @@ var multiply = function(x, y) {
   if (x === 0 || y === 0) {
     return 0;
   } else if (y > 0) {
-    if (y > 1) {
-      mult += multiply(x, y - 1)
-    }
+    mult += multiply(x, y - 1);
   } else if (y < 0) {
-    mult = -x
-    if (y < -1) {
-      mult += multiply(x, y + 1)
-    }
+    mult = -x;
+    mult += multiply(x, y + 1);
   }
   return mult;
 };
@@ -179,7 +177,16 @@ var multiply = function(x, y) {
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods.
 var divide = function(x, y) {
-  
+  var quotient = 0;
+  if (x > 0 && y > 0) {
+    if (x >= y) {
+      quotient += 1;
+      quotient += divide(x - y, y);
+    }
+  } else if (y === 0) {
+    return NaN;
+  }
+  return quotient;
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
