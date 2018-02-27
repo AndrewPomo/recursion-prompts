@@ -253,6 +253,14 @@ var reverseArr = function(array) {
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+  var result = [];
+  if (length === 1) {
+    result.push(value)
+  } else {
+    result.push(value);
+    result = result.concat(buildList(value, length - 1))
+  }
+  return result;
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
@@ -261,12 +269,40 @@ var buildList = function(value, length) {
 // For numbers which are multiples of both three and five, output “FizzBuzz” instead of the number.
 // fizzBuzz(5) // ['1','2','Fizz','4','Buzz']
 var fizzBuzz = function(n) {
+  var result = [];
+  if (n === 1) {
+    return ['1'];
+  } else {
+    if (n % 15 === 0) {
+      result.push("FizzBuzz")
+    } else if (n % 3 === 0) {
+      result.push("Fizz")
+    } else if (n % 5 === 0) { 
+      result.push('Buzz')
+    } else {
+      result.push(String(n));
+    }
+    return fizzBuzz(n - 1).concat(result)
+  }
 };
 
 // 20. Count the occurence of a value in a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
+  count = 0;
+  if (array.length === 1) {
+    if (array[0] === value) {
+      count += 1;
+    }
+  } else {
+    if (array[0] === value) {
+      count += 1 + countOccurrence(array.slice(1), value)
+    } else {
+      countOccurrence(array.slice(1), value)
+    }
+  }
+  return count;
 };
 
 // 21. Write a recursive version of map.
